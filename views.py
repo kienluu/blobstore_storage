@@ -38,10 +38,26 @@ class BlobStoreImageServeView(View):
 
     def get(self, request, *args, **kwargs):
         key = kwargs['key']
+        size = kwargs.get('size')
+        if size:
+            size = int(size)
         storage = BlobStoreStorage()
         try:
             # Default serving size is 512
             return HttpResponseRedirect(
-                get_serving_url(storage._get_blobinfo(key), size=None))
+                get_serving_url(storage._get_blobinfo(key), size=size))
         except NotImageError:
             return HttpResponseNotFound()
+
+        """
+        Size Available:
+
+        IMG_SERVING_SIZES_LIMIT = 1600
+
+        IMG_SERVING_SIZES = [
+            32, 48, 64, 72, 80, 90, 94, 104, 110, 120, 128, 144,
+            150, 160, 200, 220, 288, 320, 400, 512, 576, 640, 720,
+            800, 912, 1024, 1152, 1280, 1440, 1600]
+
+        Any size under 1600 seems to work?
+        """

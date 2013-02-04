@@ -1,0 +1,15 @@
+{% extends 'admin/change_list.html' %}
+
+{% block javascripts %}
+    {{ block.super }}
+    <script type="text/javascript" src="/static/js/ZeroClipboard.min.js"></script>
+    <script type="text/javascript">
+        (function($){
+            $(document).ready(function(){
+                var clip = new ZeroClipboard($('.copy-to-clipboard-button'), {
+                    moviePath: "/static/swf/ZeroClipboard.swf"
+                });
+            });
+        })(django.jQuery);
+    </script>
+{% endblock %}

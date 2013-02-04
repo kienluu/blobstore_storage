@@ -6,4 +6,4 @@ class TestGae(models.Model):
     upload = models.FileField(upload_to='uploads', max_length=255)
 
     def __unicode__(self):
-        return u'%s' % self.name
+        return u'%s' % self.name[65:]
