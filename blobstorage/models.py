@@ -14,4 +14,7 @@ class File(models.Model):
     categories = models.ManyToManyField(Category)
 
     def __unicode__(self):
-        return self.file.name[65:]
+        index = self.file.name.find('/')
+        if index > -1:
+            return self.file.name[index + 1:]
+        return self.file.name
